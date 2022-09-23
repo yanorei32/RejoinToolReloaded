@@ -4,6 +4,6 @@ public enum InstanceInformationProperties {
 	WorldId,
 	RegionStr,
 	Nonce,
-	UserValue,
+	OwnerId,
 	Name,
 }

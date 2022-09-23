@@ -36,7 +36,7 @@ public static class Validator {
 				)
 			);
 		}
-		
+
 		if (i.Name == null) {
 			list.Add(
 				new ValidationResult<InstanceInformationProperties>(
@@ -44,26 +44,15 @@ public static class Validator {
 					"Required"
 				)
 			);
-		}
-
-		if (i.Name != null && !instanceNameR.IsMatch(i.Name)) {
-			list.Add(
-				new ValidationResult<InstanceInformationProperties>(
-					InstanceInformationProperties.Name,
-					"Must be [A-Za-z0-9]+"
-				)
-			);
-		}
-
-		if (i.OwnerId != null) {
-			var r = ValidateUser(i.OwnerId.Value);
-			if (r != null)
+		} else {
+			if (!instanceNameR.IsMatch(i.Name)) {
 				list.Add(
 					new ValidationResult<InstanceInformationProperties>(
-						InstanceInformationProperties.UserValue,
-						r.Value.Reason
+						InstanceInformationProperties.Name,
+						"Must be [A-Za-z0-9]+"
 					)
 				);
+			}
 		}
 
 		if (i.RegionStr != null && !regionStrR.IsMatch(i.RegionStr)) {
@@ -75,13 +64,60 @@ public static class Validator {
 			);
 		}
 
-		if (i.Nonce != null && !nonceR.IsMatch(i.Nonce)) {
-			list.Add(
-				new ValidationResult<InstanceInformationProperties>(
-					InstanceInformationProperties.Nonce,
-					"Must be UUID or [0-9A-F]{48 or 64}"
-				)
-			);
+		if (i.OwnerId == null) {
+			switch (i.Permission) {
+				case Permission.FriendsPlus:
+				case Permission.Friends:
+				case Permission.InvitePlus:
+				case Permission.InviteOnly:
+					list.Add(
+						new ValidationResult<InstanceInformationProperties>(
+							InstanceInformationProperties.OwnerId,
+							"Required"
+						)
+					);
+					break;
+			}
+		} else {
+			var r = ValidateUser(i.OwnerId.Value);
+			if (r != null) {
+				list.Add(
+					new ValidationResult<InstanceInformationProperties>(
+						InstanceInformationProperties.OwnerId,
+						r.Value.Reason
+					)
+				);
+			}
+		}
+
+		if (i.Nonce == null) {
+			switch (i.Permission) {
+				case Permission.InvitePlus:
+				case Permission.InviteOnly:
+					list.Add(
+						new ValidationResult<InstanceInformationProperties>(
+							InstanceInformationProperties.OwnerId,
+							"Required in Invite*"
+						)
+					);
+					break;
+			}
+		} else {
+			if (i.Permission == Permission.Public) {
+				list.Add(
+					new ValidationResult<InstanceInformationProperties>(
+						InstanceInformationProperties.Nonce,
+						"Not allowed in Public"
+					)
+				);
+			} else if (!nonceR.IsMatch(i.Nonce)) {
+				list.Add(
+					new ValidationResult<InstanceInformationProperties>(
+						InstanceInformationProperties.Nonce,
+						"Must be UUID or [0-9A-F]{48 or 64}"
+					)
+				);
+			}
 		}
 
 		return list;
