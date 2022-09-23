@@ -1,4 +1,4 @@
-﻿namespace RejoinToolLib.Parser;
+namespace RejoinToolLib.Parser;
 
 // This new parser from VRChatRejoinToolCore/RamType0.
 //   BSD 2-Clause License
@@ -13,7 +13,7 @@ using RejoinToolLib.Model;
 public static class LogParser {
 	public static void GetJoinEvents(List<JoinEvent> joinEvents, ReadOnlySpan<byte> log) {
 		var remaining = log;
-		var instanceTokenStartIndex = DestinationFetchingInstanceIdIndexOf(remaining);
+		var instanceTokenStartIndex = DestinationSetInstanceIdIndexOf(remaining);
 
 		while (instanceTokenStartIndex >= 0) {
 			var instanceTokenLength = remaining.Slice(instanceTokenStartIndex).IndexOf((byte) '\n');
@@ -43,7 +43,7 @@ public static class LogParser {
 
 			remaining = remaining.Slice(instanceTokenStartIndex + instanceToken.Length);
 
-			var nextInstanceIdStartIndex = DestinationFetchingInstanceIdIndexOf(remaining);
+			var nextInstanceIdStartIndex = DestinationSetInstanceIdIndexOf(remaining);
 			var worldNameSearchLength = nextInstanceIdStartIndex >= 0 ? nextInstanceIdStartIndex : remaining.Length;
 			var worldNameSearchSpan = remaining.Slice(0, worldNameSearchLength);
 			var worldName = ExtractWorldName(worldNameSearchSpan);
@@ -55,8 +55,8 @@ public static class LogParser {
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	static int DestinationFetchingInstanceIdIndexOf(ReadOnlySpan<byte> logFragment) {
-		ReadOnlySpan<byte> destinationFetching = stackalloc byte[] {
+	static int DestinationSetInstanceIdIndexOf(ReadOnlySpan<byte> logFragment) {
+		ReadOnlySpan<byte> destinationSet = stackalloc byte[] {
 			(byte) '[',
 			(byte) 'B',
 			(byte) 'e',
@@ -81,14 +81,9 @@ public static class LogParser {
 			(byte) 'o',
 			(byte) 'n',
 			(byte) ' ',
-			(byte) 'f',
+			(byte) 's',
 			(byte) 'e',
 			(byte) 't',
-			(byte) 'c',
-			(byte) 'h',
-			(byte) 'i',
-			(byte) 'n',
-			(byte) 'g',
 			(byte) ':',
 			(byte) ' ',
 			(byte) 'w',
@@ -104,7 +99,7 @@ public static class LogParser {
 			var underbarIndex = remaining.IndexOf((byte) '_'); // '_' is the best single char for searching "wrld_"
 			if (underbarIndex < 0) return -1;
 
-			if (remaining.Slice(0, underbarIndex).EndsWith(destinationFetching)) {
+			if (remaining.Slice(0, underbarIndex).EndsWith(destinationSet)) {
 				var localStartIndex = underbarIndex - 4;
 				return scanedBytes + localStartIndex;
 			} else {

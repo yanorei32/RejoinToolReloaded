@@ -20,7 +20,7 @@ public record struct InstanceInformation (string WorldId) {
 		var remaining = token.InstanceId.Split('~')!;
 		var instanceName = remaining[0];
 		Permission permission = Permission.Public;
-		VRChatServer actualServer = VRChatServer.USE;
+		VRChatServer actualServer = VRChatServer.USW;
 		string? ownerId = null, nonce = null, regionStr = null;
 
 		foreach (var arg in remaining.Skip(1)) {
