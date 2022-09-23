@@ -25,7 +25,7 @@ class Program {
 			var i = e.InstanceInformation;
 			Console.WriteLine($"  {i.Permission}:{i.ActualServer.ToString()}:{i.Name}");
 			Console.WriteLine(e.TimeStamp.ToString("  yyyy/MM/dd HH:mm:ss"));
-			Console.WriteLine("  " + e.Token.WebSiteURI);
+			Console.WriteLine("  " + e.Token.ToWebSiteURI());
 			Console.WriteLine();
 		}
 	}
