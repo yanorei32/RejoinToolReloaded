@@ -26,5 +26,5 @@ public record JoinEvent() {
 	public override string ToString() =>
 		TimeStamp.ToString("o", CultureInfo.InvariantCulture)
 		+ $" join {WorldName ?? "unknown"}"
-		+ $" {Token.WebSiteURI}";
+		+ $" {Token.ToWebSiteURI()}";
 }

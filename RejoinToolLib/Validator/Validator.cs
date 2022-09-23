@@ -14,9 +14,9 @@ public static class Validator {
 
 	public static ValidationResult<UserProperties>?
 		ValidateUser(User u) {
-		if (!userIdR.IsMatch(u.Value)) {
+		if (!userIdR.IsMatch(u.Id)) {
 			return new ValidationResult<UserProperties>(
-				UserProperties.Value,
+				UserProperties.Id,
 				"Must be 'usr_' + UUID"
 			);
 		}

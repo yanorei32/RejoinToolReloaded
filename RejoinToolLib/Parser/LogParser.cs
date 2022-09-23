@@ -1,6 +1,6 @@
 namespace RejoinToolLib.Parser;
 
-// This new parser from VRChatRejoinToolCore/RamType0.
+// New parser from VRChatRejoinToolCore/RamType0.
 //   BSD 2-Clause License
 //   Copyright (c) 2022, Ram.Type-0
 

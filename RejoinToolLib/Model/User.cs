@@ -1,5 +1,5 @@
 namespace RejoinToolLib.Model;
 
-public record struct User (string Value) {
-	public string UserURI => $"https://vrch.at/{Value}";
+public record struct User (string Id) {
+	public string ToWebSiteURI() => $"https://vrch.at/{Id}";
 }
