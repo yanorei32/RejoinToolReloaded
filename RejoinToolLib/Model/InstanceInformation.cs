@@ -10,6 +10,45 @@ public record struct InstanceInformation (string WorldId) {
 	public string? RegionStr { get; init; } = default!;
 	public string? Nonce { get; init; } = default!;
 
+	public Token ToToken() {
+		var v = WorldId;
+
+		if (Name != null)
+			v += $":{Name}";
+
+		switch (Permission) {
+			case Permission.Invalid:
+			case Permission.Public:
+				break;
+			case Permission.InviteOnly:
+			case Permission.InvitePlus:
+				v += "~private";
+				break;
+
+			case Permission.Friends:
+				v += "~friends";
+				break;
+
+			case Permission.FriendsPlus:
+				v += "~hidden";
+				break;
+		}
+
+		if (OwnerId != null)
+			v += $"({OwnerId.Value.Id})";
+
+		if (Permission == Permission.InvitePlus)
+			v += "~canRequestInvite";
+
+		if (RegionStr != null)
+			v += $"~region({RegionStr})";
+
+		if (Nonce != null)
+			v += $"~nonce({Nonce})";
+
+		return new Token(v);
+	}
+
 	static public InstanceInformation BuildFromToken(Token token) {
 		if (token.InstanceId == null)
 			return new (token.WorldId) {
