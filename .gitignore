@@ -1,3 +1,6 @@
 *.txt
 */bin
 */obj
+.vs
+*.csproj.user
+.vscode

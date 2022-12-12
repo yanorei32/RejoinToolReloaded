@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -6,6 +6,8 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RejoinToolCLI", "RejoinToolCLI\RejoinToolCLI.csproj", "{67633DA9-5EA1-4583-AF98-DC029C21E452}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RejoinToolLib", "RejoinToolLib\RejoinToolLib.csproj", "{72A6F27E-371B-4D2B-BC40-74C4FE22B74B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RejoinToolWinForms", "RejoinToolWinForms\RejoinToolWinForms.csproj", "{2A1E952D-55BB-4E8F-8610-D548A65F9B93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +26,9 @@ Global
 		{72A6F27E-371B-4D2B-BC40-74C4FE22B74B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72A6F27E-371B-4D2B-BC40-74C4FE22B74B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72A6F27E-371B-4D2B-BC40-74C4FE22B74B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A1E952D-55BB-4E8F-8610-D548A65F9B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A1E952D-55BB-4E8F-8610-D548A65F9B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A1E952D-55BB-4E8F-8610-D548A65F9B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A1E952D-55BB-4E8F-8610-D548A65F9B93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

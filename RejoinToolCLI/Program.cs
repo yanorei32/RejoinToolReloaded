@@ -1,4 +1,4 @@
-﻿namespace RejoinToolCLI;
+namespace RejoinToolCLI;
 
 using System;
 using System.IO;
