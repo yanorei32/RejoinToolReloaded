@@ -108,8 +108,8 @@ partial class EditInstanceForm : System.Windows.Forms.Form {
 		curH += permissionLabel.Size.Height;
 		curH += padding;
 
-		permission.DataSource				= Enum.GetValues(typeof(Permission));
-		permission.DropDownStyle			= ComboBoxStyle.DropDownList;
+		permission.DataSource			= Enum.GetValues(typeof(Permission));
+		permission.DropDownStyle		= ComboBoxStyle.DropDownList;
 		permission.Size					= new Size(textBoxW, 20);
 		permission.Font					= new Font("Consolas", 9F);
 		permission.Location				= new Point(curW, curH);
@@ -130,8 +130,8 @@ partial class EditInstanceForm : System.Windows.Forms.Form {
 		curH += regionLabel.Size.Height;
 		curH += padding;
 
-		region.DataSource				= Enum.GetValues(typeof(VRChatServer));
-		region.DropDownStyle			= ComboBoxStyle.DropDownList;
+		region.DataSource			= Enum.GetValues(typeof(VRChatServer));
+		region.DropDownStyle		= ComboBoxStyle.DropDownList;
 		region.Size					= new Size(textBoxW, 20);
 		region.Font					= new Font("Consolas", 9F);
 		region.Location				= new Point(curW, curH);
