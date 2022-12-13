@@ -6,5 +6,6 @@ public enum Permission {
 	FriendsPlus,
 	InviteOnly,
 	InvitePlus,
+	Group,
 	Invalid,
 }

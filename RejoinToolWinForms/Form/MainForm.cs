@@ -13,7 +13,7 @@ partial class MainForm : System.Windows.Forms.Form {
 			detail,
 			next,
 			prev,
-			userDetail;
+			ownerDetail;
 
 	Label?	datetime,
 			instance,
@@ -63,7 +63,7 @@ partial class MainForm : System.Windows.Forms.Form {
 		);
 	}
 
-	void userDetailButtonClick(object sender, EventArgs e) {
+	void ownerDetailButtonClick(object sender, EventArgs e) {
 		Utility.OpenURI(
 			events[index].InstanceInformation.OwnerId?.ToWebSiteURI()!
 		);
@@ -92,7 +92,7 @@ partial class MainForm : System.Windows.Forms.Form {
 		if (permission == null) return;
 		if (instance == null) return;
 		if (datetime == null) return;
-		if (userDetail == null) return;
+		if (ownerDetail == null) return;
 
 		SuspendLayout();
 
@@ -107,7 +107,7 @@ partial class MainForm : System.Windows.Forms.Form {
 		permission.Text = $"  {i.Permission}:{i.ActualServer}:{i.Name}";
 		instance.Text = e.Token.RawToken;
 		datetime.Text = e.TimeStamp.ToString("  yyyy/MM/dd HH:mm:ss");
-		userDetail.Enabled = i.OwnerId != null;
+		ownerDetail.Enabled = i.OwnerId != null;
 
 		ResumeLayout(false);
 	}

@@ -5,7 +5,7 @@ using System.Linq;
 public record struct InstanceInformation (string WorldId) {
 	public string? Name { get; init; } = default!;
 	public Permission Permission { get; init; } = default!;
-	public User? OwnerId { get; init; } = default!;
+	public Owner? OwnerId { get; init; } = default!;
 	public VRChatServer ActualServer { get; init; } = default!;
 	public string? RegionStr { get; init; } = default!;
 	public string? Nonce { get; init; } = default!;
@@ -67,6 +67,10 @@ public record struct InstanceInformation (string WorldId) {
 			var argV = argS.ElementAtOrDefault(1)?.Replace(")", string.Empty) ?? null;
 
 			switch (argS?[0]!) {
+				case "group":
+					ownerId = argV;
+					permission = Permission.Group;
+					break;
 				case "hidden":
 					ownerId = argV;
 					permission = Permission.FriendsPlus;

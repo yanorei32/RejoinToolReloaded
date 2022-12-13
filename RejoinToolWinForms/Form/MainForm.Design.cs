@@ -66,7 +66,7 @@ partial class MainForm : System.Windows.Forms.Form {
 		next		= new Button();
 		launchVrc	= new Button();
 		detail		= new Button();
-		userDetail	= new Button();
+		ownerDetail	= new Button();
 		datetime	= new Label();
 		instance	= new Label();
 		permission	= new Label();
@@ -180,11 +180,11 @@ partial class MainForm : System.Windows.Forms.Form {
 		curW += detail.Size.Width;
 		curW += padding;
 
-		userDetail.Text			= "User (&U)";
-		userDetail.Location		= new Point(curW, curH);
-		userDetail.Size			= new Size(75, 23);
-		userDetail.Click		+= new EventHandler(userDetailButtonClick);
-		userDetail.UseMnemonic	= true;
+		ownerDetail.Text		= "Owner (&O)";
+		ownerDetail.Location	= new Point(curW, curH);
+		ownerDetail.Size		= new Size(75, 23);
+		ownerDetail.Click		+= new EventHandler(ownerDetailButtonClick);
+		ownerDetail.UseMnemonic	= true;
 
 		curW = margin;
 		curH += launchVrc.Size.Height;
@@ -204,7 +204,7 @@ partial class MainForm : System.Windows.Forms.Form {
 		Controls.Add(logo);
 		Controls.Add(launchVrc);
 		Controls.Add(detail);
-		Controls.Add(userDetail);
+		Controls.Add(ownerDetail);
 		Controls.Add(prev);
 		Controls.Add(next);
 		Controls.Add(datetime);

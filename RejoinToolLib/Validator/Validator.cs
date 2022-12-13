@@ -10,19 +10,8 @@ public static class Validator {
 	static Regex nonceR = new Regex(@"\A([0-9A-F]{48}|[0-9A-F]{64}|[a-f0-9]{8}-[a-f0-9]{4}-[0-5][a-f0-9]{3}-[a-b0-9][a-f0-9]{3}-[a-f0-9]{12})\z");
 	static Regex instanceNameR = new Regex(@"\A[A-Za-z0-9]+\z");
 	static Regex userIdR = new Regex(@"\Ausr_[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[a-f0-9]{4}-[a-f0-9]{12}\z");
+	static Regex groupIdR = new Regex(@"\Agrp_[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[a-f0-9]{4}-[a-f0-9]{12}\z");
 	static Regex regionStrR = new Regex(@"\A[a-z]{1,3}\z");
-
-	public static ValidationResult<UserProperties>?
-		ValidateUser(User u) {
-		if (!userIdR.IsMatch(u.Id)) {
-			return new ValidationResult<UserProperties>(
-				UserProperties.Id,
-				"Must be 'usr_' + UUID"
-			);
-		}
-
-		return null;
-	}
 
 	public static List<ValidationResult<InstanceInformationProperties>>
 		ValidateInstanceInformation(InstanceInformation i) {
@@ -70,6 +59,7 @@ public static class Validator {
 				case Permission.Friends:
 				case Permission.InvitePlus:
 				case Permission.InviteOnly:
+				case Permission.Group:
 					list.Add(
 						new ValidationResult<InstanceInformationProperties>(
 							InstanceInformationProperties.OwnerId,
@@ -79,14 +69,30 @@ public static class Validator {
 					break;
 			}
 		} else {
-			var r = ValidateUser(i.OwnerId.Value);
-			if (r != null) {
-				list.Add(
-					new ValidationResult<InstanceInformationProperties>(
-						InstanceInformationProperties.OwnerId,
-						r.Value.Reason
-					)
-				);
+			switch (i.Permission) {
+				case Permission.FriendsPlus:
+				case Permission.Friends:
+				case Permission.InvitePlus:
+				case Permission.InviteOnly:
+					if (!userIdR.IsMatch(i.OwnerId.Value.Id)) {
+						list.Add(
+							new ValidationResult<InstanceInformationProperties>(
+								InstanceInformationProperties.OwnerId,
+								"Must be 'usr_' + UUID"
+							)
+						);
+					}
+					break;
+				case Permission.Group:
+					if (!groupIdR.IsMatch(i.OwnerId.Value.Id)) {
+						list.Add(
+							new ValidationResult<InstanceInformationProperties>(
+								InstanceInformationProperties.OwnerId,
+								"Must be 'grp_' + UUID"
+							)
+						);
+					}
+					break;
 			}
 		}
 
