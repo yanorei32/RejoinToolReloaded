@@ -5,14 +5,16 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <LangVersion>10</LangVersion>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>net48;net7.0-windows</TargetFrameworks>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>..\res\icon.ico</ApplicationIcon>
-    <TargetName>VRChatRejoinTool</TargetName>
+    <AssemblyName>VRChatRejoinTool</AssemblyName>
+    <ProductName>VRChatRejoinTool</ProductName>
     <VersionPrefix>4.1.0</VersionPrefix>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <Optimize>true</Optimize>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
